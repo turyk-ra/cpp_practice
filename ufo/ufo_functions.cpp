@@ -13,6 +13,16 @@ std::string select_codeword(std::vector<std::string> codewords)
     return codeword;
 }
 
+std::vector<std::string> codewords = {"codecademy", "literature", "permission", "volleyball"};
+std::string answer = "__________";
+std::string codeword = select_codeword(codewords);
+int misses = 0;
+std::vector<char> incorrect;
+bool guess = false;
+char letter;
+
+
+
 void greet()
 {
     cout << "=============\n"
@@ -170,5 +180,56 @@ void display_misses(int misses)
         std::cout << "           /           \\                     \n";
         std::cout << "          /             \\                    \n";
         std::cout << "         /               \\                   \n";
+    }
+}
+
+void play_game()
+{
+    while (answer != codeword && misses < 7)
+    {
+        display_misses(misses);
+        display_status(incorrect, answer);
+        cout << "Please enter your guess: ";
+        cin >> letter;
+        for (unsigned int i = 0; i < codeword.length(); i++)
+        {
+            if (codeword[i] == tolower(letter))
+            {
+                answer[i] = tolower(letter);
+                guess = true;
+            }
+        }
+        if (guess)
+        {
+            cout << "Correct!";
+        }
+        else
+        {
+            cout << "Incorrect! The tractor beam pulls the person in further.";
+            incorrect.push_back(letter);
+            misses++;
+        }
+        guess = false;
+    }
+    end_game(answer, codeword);
+}
+
+void play_again(char letter, bool play_again)
+{
+    if (letter == 'y')
+    {
+        codeword = select_codeword(codewords);
+        misses = 0;
+        incorrect = {};
+        guess = false;
+        answer = "__________";
+
+        greet();
+        play_game();
+    }
+    else
+    {
+        cout << "Bye bye!\n";
+        play_again = false;
     }
 }
