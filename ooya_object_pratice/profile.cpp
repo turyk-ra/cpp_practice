@@ -18,7 +18,8 @@ Profile::~Profile(){
 
 };
 
-string Profile::view_profile(){
+string Profile::view_profile()
+{
     string view_profile = "";
     view_profile += name + "\n";
     view_profile += to_string(age) + "\n";
@@ -29,7 +30,7 @@ string Profile::view_profile(){
     {
         view_profile += hobbies[i] + "\n";
     }
-    
+
     return view_profile;
 }
 
